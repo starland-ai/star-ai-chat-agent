@@ -1,0 +1,25 @@
+syntax = "proto3";
+package starland_chat_agent;
+message ChatRequest {
+    bytes message = 1;
+    string character_id = 2;
+    string conversation_id = 3;
+    float temperature = 4;
+}
+
+message ChatResponse {
+    uint32 code = 1;
+    string err_msg = 2;
+    string response_text = 3;
+}
+
+message ChatStreamResponse {
+    uint32 code = 1;
+    string err_msg = 2;
+    string chunk = 3;
+}
+
+service Agent {
+     rpc Chat(ChatRequest) returns (ChatResponse) {}
+     rpc ChatStream(ChatRequest) returns (stream ChatStreamResponse) {}
+}
